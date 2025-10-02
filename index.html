@@ -103,7 +103,7 @@
     <section id="about" class="about-3d">
         <div class="container mt-4 pt-4">
             <h1 class="text-center section-title">About Me</h1>
-            <div class="row mt-4 align-items-center">
+            <div class="row mt-4 align-items-center about-grid">
                 <div class="col-lg-4">
                     <div class="image-container-3d">
                         <img src="Free PSD _ 3d woman with index finger pointing up (1).jpeg" class="imageAboutPage floating-image" alt="Sneha Hridaya">
@@ -115,12 +115,14 @@
 
                 <div class="col-lg-8">
                     <div class="about-content">
-                        <p class="about-description"> 
+                        <div class="about-body">
+                            <p class="about-description"> 
                             Hello! I'm Sneha Hridaya, a passionate Computer Science student with a love for creating innovative digital experiences. 
                             I specialize in web development and enjoy bringing creative ideas to life through code. My journey in technology 
                             began with curiosity and has evolved into a dedicated pursuit of excellence in software development.
                         </p>
-                        
+                            </p>
+                        </div>
                         <div class="about-timeline">
                             <div class="timeline-item" data-year="2020">
                                 <h4>Started Programming Journey</h4>
@@ -155,6 +157,32 @@
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- education section -->
+    <section id="education" class="education-3d">
+        <div class="container mt-4 pt-4">
+            <h1 class="text-center section-title">Education</h1>
+            <div class="education-grid mt-4">
+                <div class="edu-item">
+                    <h4>Bachelor of Technology — Computer Science</h4>
+                    <span class="edu-meta">CMR Institute of Technology — 2021 - Present</span>
+                    <p>Relevant coursework: Data Structures, Algorithms, Web Development, Computer Graphics, Databases.</p>
+                </div>
+
+                <div class="edu-item">
+                    <h4>Higher Secondary Certificate</h4>
+                    <span class="edu-meta">Local High School — 2019 - 2021</span>
+                    <p>Focus on Mathematics and Physics; strong foundations for CS studies.</p>
+                </div>
+
+                <div class="edu-item">
+                    <h4>Online Courses & Certifications</h4>
+                    <span class="edu-meta">Coursera / Udemy</span>
+                    <p>Completed courses on Web Development, Three.js, and UI/UX design.</p>
                 </div>
             </div>
         </div>
@@ -338,7 +366,7 @@
 
             <!-- 3D Project Carousel -->
             <div class="project-carousel">
-                <div class="carousel-container">
+                <div class="carousel-container scroll-x" id="projectsScroll">
                     <div class="project-card-3d" data-category="game" data-tech="JavaScript, HTML5, CSS3">
                         <div class="card-3d">
                             <div class="card-face card-front">
@@ -656,22 +684,7 @@
                                 <div class="form-underline"></div>
                             </div>
 
-                            <div class="budget-range">
-                                <label>Budget Range</label>
-                                <div class="budget-options">
-                                    <input type="radio" id="budget1" name="budget" value="under-1000">
-                                    <label for="budget1">Under $1,000</label>
-                                    
-                                    <input type="radio" id="budget2" name="budget" value="1000-5000">
-                                    <label for="budget2">$1,000 - $5,000</label>
-                                    
-                                    <input type="radio" id="budget3" name="budget" value="5000-10000">
-                                    <label for="budget3">$5,000 - $10,000</label>
-                                    
-                                    <input type="radio" id="budget4" name="budget" value="10000-plus">
-                                    <label for="budget4">$10,000+</label>
-                                </div>
-                            </div>
+                            <!-- budget range removed per request -->
 
                             <button type="submit" class="btn-submit-3d">
                                 <span class="btn-text">Send Message</span>

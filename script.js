@@ -99,6 +99,47 @@ class PortfolioNavigation {
         });
     }
 
+    // New: smooth horizontal scrolling controls for projects
+    initProjectScrolling() {
+        const scrollContainer = document.getElementById('projectsScroll');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        if (!scrollContainer) return;
+
+        const scrollAmount = 340; // width of item + gap
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                scrollContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            });
+        }
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                scrollContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            });
+        }
+
+        // Optional: mouse drag to scroll
+        let isDown = false, startX, scrollLeft;
+        scrollContainer.addEventListener('mousedown', (e) => {
+            isDown = true;
+            scrollContainer.classList.add('active-drag');
+            startX = e.pageX - scrollContainer.offsetLeft;
+            scrollLeft = scrollContainer.scrollLeft;
+        });
+        scrollContainer.addEventListener('mouseleave', () => { isDown = false; scrollContainer.classList.remove('active-drag'); });
+        scrollContainer.addEventListener('mouseup', () => { isDown = false; scrollContainer.classList.remove('active-drag'); });
+        scrollContainer.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - scrollContainer.offsetLeft;
+            const walk = (x - startX) * 1; // scroll-fast
+            scrollContainer.scrollLeft = scrollLeft - walk;
+        });
+    }
+
     filterProjects(filter) {
         this.projectCards.forEach(card => {
             const category = card.getAttribute('data-category');
@@ -273,6 +314,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!window.portfolioConfig.isMobile) {
         new CursorTrail();
     }
+        // Initialize project scrolling (buttons + drag)
+        const nav = new PortfolioNavigation();
+        nav.initProjectScrolling();
 });
 
 // Add CSS for animations
