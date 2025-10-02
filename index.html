@@ -13,8 +13,34 @@
     <!-- font awesome -->
     <script src="https://kit.fontawesome.com/31149d48b0.js" crossorigin="anonymous"></script>
     
+    <!-- 3D Libraries and Frameworks -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.2/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.9/dat.gui.min.js"></script>
+    
+    <!-- Mobile Touch Gestures -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+    
+    <!-- Performance and Loading -->
+    <script src="https://unpkg.com/lottie-web@5.7.6/build/player/lottie.min.js"></script>
+    
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-container">
+            <div class="loading-spinner"></div>
+            <h2 class="loading-text">Loading Portfolio...</h2>
+            <div class="loading-progress">
+                <div class="loading-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3D Background Canvas -->
+    <canvas id="bg-canvas" class="bg-canvas"></canvas>
+    
     <nav class="navbar navbar-expand-lg fixed-top navbarScroll">
         <div class="container">
             <a class="navbar-brand" href="#">Hridaya</a>
@@ -44,270 +70,720 @@
         </div>
     </nav>
 
-     <!-- main banner -->
-     <section class="bgimage" id="home">
-        <div class="container-fluid">
+     <!-- main banner with 3D elements -->
+     <section class="hero-3d" id="home">
+        <div id="hero-canvas" class="hero-canvas"></div>
+        <div class="particle-system" id="particles"></div>
+        <div class="container-fluid hero-content">
             <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 hero-text">
-                <h2 class="hero_title">Hi, it's me Sneha Hridaya</h2>
-                <p class="hero_desc"> Student of CMR Institute of Technology</p>
+                <h2 class="hero_title animate-text">Hi, it's me Sneha Hridaya</h2>
+                <p class="hero_desc animate-text-delay"> Student of CMR Institute of Technology</p>
+                <div class="hero-cta">
+                    <button class="btn-3d" id="exploreBtn">Explore My Work</button>
+                    <button class="btn-3d-outline" id="contactBtn">Get In Touch</button>
+                </div>
+                <div class="scroll-indicator">
+                    <div class="mouse"></div>
+                    <span>Scroll to explore</span>
+                </div>
             </div>
             </div>
         </div>
+        <div class="floating-elements">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
     </section>
 
-    <!-- about section-->
-    <section id="about">
+    <!-- about section with 3D elements -->
+    <section id="about" class="about-3d">
         <div class="container mt-4 pt-4">
-            <h1 class="text-center">About Me</h1>
-            <div class="row mt-4">
+            <h1 class="text-center section-title">About Me</h1>
+            <div class="row mt-4 align-items-center">
                 <div class="col-lg-4">
-                    <img src="Free PSD _ 3d woman with index finger pointing up (1).jpeg" class= "imageAboutPage" alt="">
-                  <!--  <video width="250" height="400" controls loop autoplay>
-                        <source src="video.mp4" type="video/mp4"> -->
+                    <div class="image-container-3d">
+                        <img src="Free PSD _ 3d woman with index finger pointing up (1).jpeg" class="imageAboutPage floating-image" alt="Sneha Hridaya">
+                        <div class="image-overlay">
+                            <div class="image-glow"></div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-lg-8">
-                   <p> Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged
+                    <div class="about-content">
+                        <p class="about-description"> 
+                            Hello! I'm Sneha Hridaya, a passionate Computer Science student with a love for creating innovative digital experiences. 
+                            I specialize in web development and enjoy bringing creative ideas to life through code. My journey in technology 
+                            began with curiosity and has evolved into a dedicated pursuit of excellence in software development.
+                        </p>
                         
-                    </p>
-                    <div class="row mt-3">
-                        <div class="col-md-8">
-                            <ul>
-                                <li>Name: Sneha Hridaya Vengala</li>
-                                <li>Age: 20</li>
-                                <li>Qulification : Computer Science Student</li>
-
-                            </ul>
-                        </div>  
+                        <div class="about-timeline">
+                            <div class="timeline-item" data-year="2020">
+                                <h4>Started Programming Journey</h4>
+                                <p>Began learning web development fundamentals</p>
+                            </div>
+                            <div class="timeline-item" data-year="2022">
+                                <h4>Advanced Studies</h4>
+                                <p>Enrolled in Computer Science at CMR Institute of Technology</p>
+                            </div>
+                            <div class="timeline-item" data-year="2024">
+                                <h4>Current Focus</h4>
+                                <p>Specializing in 3D web experiences and interactive design</p>
+                            </div>
+                        </div>
+                        
+                        <div class="personal-info">
+                            <div class="info-card">
+                                <span class="info-label">Name:</span>
+                                <span class="info-value">Sneha Hridaya Vengala</span>
+                            </div>
+                            <div class="info-card">
+                                <span class="info-label">Age:</span>
+                                <span class="info-value">20</span>
+                            </div>
+                            <div class="info-card">
+                                <span class="info-label">Education:</span>
+                                <span class="info-value">Computer Science Student</span>
+                            </div>
+                            <div class="info-card">
+                                <span class="info-label">Focus:</span>
+                                <span class="info-value">Full-Stack Development</span>
+                            </div>
+                        </div>
                     </div>
-                    
                 </div>
             </div>
+        </div>
     </section>
 
 
-    <!-- services section-->
-    <section id="services">
+    <!-- skills section with 3D elements -->
+    <section id="services" class="skills-3d">
         <div class="container">
-            <h1 class="text-center">Skills</h1>
-            <div class="row">
-                <div class="col-lg-4 mt-4">
-                    <div class="card servicesText">
-                        <div class="card-body">
-                            <i class="fas servicesIcon fa-clock"></i>
-                            <h4 class="card-title mt-3">Website Development</h4>
-                            <p class="card-text mt-3">Some quick example text to build on the card title and make up the bulk of the card's content.
-                                Some quick example text to build on the card title and make up the bulk of the card's content.
-                            </p>
+            <h1 class="text-center section-title">Skills & Expertise</h1>
+            <p class="text-center section-subtitle">Hover over the cards to see them come to life!</p>
+            
+            <div class="skills-grid">
+                <div class="skill-card-3d" data-skill="frontend">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon">
+                                <i class="fab fa-html5"></i>
+                                <i class="fab fa-css3-alt"></i>
+                                <i class="fab fa-js-square"></i>
+                            </div>
+                            <h4>Frontend Development</h4>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="90"></div>
+                            </div>
                         </div>
-                    </div>  
-                </div>
-                <div class="col-lg-4 mt-4">
-                    <div class="card servicesText">
-                        <div class="card-body">
-                            <i class='fas servicesIcon fa-layer-group'></i>
-                            <h4 class="card-title mt-3">Website Design</h4>
-                            <p class="card-text mt-3">Some quick example text to build on the card title and make up the bulk of the card's content.
-                                Some quick example text to build on the card title and make up the bulk of the card's content.
-                            </p>
+                        <div class="card-back">
+                            <h4>Frontend Technologies</h4>
+                            <ul>
+                                <li>HTML5 & CSS3</li>
+                                <li>JavaScript ES6+</li>
+                                <li>React & Vue.js</li>
+                                <li>Bootstrap & Tailwind</li>
+                                <li>Three.js & WebGL</li>
+                            </ul>
                         </div>
-                    </div>  
-                </div>
-
-                <div class="col-lg-4 mt-4">
-                    <div class="card servicesText">
-                        <div class="card-body">
-                            <i class='far servicesIcon fa-check-circle'></i>
-                            <h4 class="card-title mt-3">Website Deployment</h4>
-                            <p class="card-text mt-3">Some quick example text to build on the card title and make up the bulk of the card's content.
-                                Some quick example text to build on the card title and make up the bulk of the card's content.
-                            </p>
-                        </div>
-                    </div>  
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-lg-4 mt-4">
-                    <div class="card servicesText">
-                        <div class="card-body">
-                            <i class='fas servicesIcon fa-search'></i>
-                            <h4 class="card-title mt-3">SEO</h4>
-                            <p class="card-text mt-3">Some quick example text to build on the card title and make up the bulk of the card's content.
-                                Some quick example text to build on the card title and make up the bulk of the card's content.
-                            </p>
-                        </div>
-                    </div>  
+                    </div>
                 </div>
 
-                <div class="col-lg-4 mt-4">
-                    <div class="card servicesText">
-                        <div class="card-body">
-                            <i class='fas servicesIcon fa-shield-alt'></i>
-                            <h4 class="card-title mt-3">DevOps</h4>
-                            <p class="card-text mt-3">Some quick example text to build on the card title and make up the bulk of the card's content.
-                                Some quick example text to build on the card title and make up the bulk of the card's content.
-                            </p>
+                <div class="skill-card-3d" data-skill="backend">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon">
+                                <i class="fab fa-node-js"></i>
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h4>Backend Development</h4>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="75"></div>
+                            </div>
                         </div>
-                    </div>  
+                        <div class="card-back">
+                            <h4>Backend Technologies</h4>
+                            <ul>
+                                <li>Node.js & Express</li>
+                                <li>Python & Django</li>
+                                <li>MongoDB & MySQL</li>
+                                <li>RESTful APIs</li>
+                                <li>GraphQL</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="col-lg-4 mt-4">
-                    <div class="card servicesText">
-                        <div class="card-body">
-                            <i class='fas servicesIcon fa-wrench'></i>
-                            <h4 class="card-title mt-3">QA</h4>
-                            <p class="card-text mt-3">Some quick example text to build on the card title and make up the bulk of the card's content.
-                                Some quick example text to build on the card title and make up the bulk of the card's content.
-                            </p>
+                <div class="skill-card-3d" data-skill="design">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon">
+                                <i class="fas fa-palette"></i>
+                                <i class="fas fa-vector-square"></i>
+                            </div>
+                            <h4>UI/UX Design</h4>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="85"></div>
+                            </div>
                         </div>
-                    </div>  
+                        <div class="card-back">
+                            <h4>Design Tools</h4>
+                            <ul>
+                                <li>Figma & Adobe XD</li>
+                                <li>Photoshop & Illustrator</li>
+                                <li>Blender (3D Modeling)</li>
+                                <li>User Research</li>
+                                <li>Wireframing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card-3d" data-skill="mobile">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                                <i class="fab fa-android"></i>
+                            </div>
+                            <h4>Mobile Development</h4>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="70"></div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h4>Mobile Technologies</h4>
+                            <ul>
+                                <li>React Native</li>
+                                <li>Flutter & Dart</li>
+                                <li>Progressive Web Apps</li>
+                                <li>Android Development</li>
+                                <li>Mobile UI/UX</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card-3d" data-skill="devops">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon">
+                                <i class="fab fa-aws"></i>
+                                <i class="fab fa-docker"></i>
+                            </div>
+                            <h4>DevOps & Cloud</h4>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="65"></div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h4>DevOps Tools</h4>
+                            <ul>
+                                <li>AWS & Firebase</li>
+                                <li>Docker & Kubernetes</li>
+                                <li>CI/CD Pipelines</li>
+                                <li>Git & GitHub Actions</li>
+                                <li>Server Management</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-card-3d" data-skill="tools">
+                    <div class="card-inner">
+                        <div class="card-front">
+                            <div class="skill-icon">
+                                <i class="fas fa-tools"></i>
+                                <i class="fas fa-code-branch"></i>
+                            </div>
+                            <h4>Development Tools</h4>
+                            <div class="skill-level">
+                                <div class="skill-bar" data-level="88"></div>
+                            </div>
+                        </div>
+                        <div class="card-back">
+                            <h4>Development Environment</h4>
+                            <ul>
+                                <li>VS Code & IntelliJ</li>
+                                <li>Git Version Control</li>
+                                <li>NPM & Yarn</li>
+                                <li>Webpack & Vite</li>
+                                <li>Testing Frameworks</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- portfolio section-->
-    <section id="portfolio">
+    <!-- portfolio section with 3D carousel -->
+    <section id="portfolio" class="portfolio-3d">
         <div class="container mt-3">
-            <h1 class="text-center">Projects</h1>
-            <div class="row">
-                <div class="col-lg-4 mt-4">
-                    <div class="card">
-                        <img class="card-img-top" src="New folder/Screenshot 2024-09-02 235355.png" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">Rock-paper-scissors</h4>
-                            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <div class="text-center">
-                                <a href="https://ace2884.github.io/rock-paper-scissor-game/" class="btn btn-success">Link</a>
+            <h1 class="text-center section-title">Featured Projects</h1>
+            <p class="text-center section-subtitle">Interactive showcase of my latest work</p>
+            
+            <!-- Project Filter Buttons -->
+            <div class="project-filters">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Apps</button>
+                <button class="filter-btn" data-filter="game">Games</button>
+                <button class="filter-btn" data-filter="tool">Tools</button>
+            </div>
+
+            <!-- 3D Project Carousel -->
+            <div class="project-carousel">
+                <div class="carousel-container">
+                    <div class="project-card-3d" data-category="game" data-tech="JavaScript, HTML5, CSS3">
+                        <div class="card-3d">
+                            <div class="card-face card-front">
+                                <div class="project-image">
+                                    <img src="New folder/Screenshot 2024-09-02 235355.png" alt="Rock Paper Scissors Game">
+                                    <div class="project-overlay">
+                                        <div class="project-tech">
+                                            <span class="tech-tag">JavaScript</span>
+                                            <span class="tech-tag">HTML5</span>
+                                            <span class="tech-tag">CSS3</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h4>Rock Paper Scissors</h4>
+                                    <p>Interactive game with smooth animations and score tracking</p>
+                                </div>
+                            </div>
+                            <div class="card-face card-back">
+                                <div class="project-details">
+                                    <h4>Rock Paper Scissors Game</h4>
+                                    <p>A fun interactive game featuring:</p>
+                                    <ul>
+                                        <li>Smooth animations</li>
+                                        <li>Score tracking system</li>
+                                        <li>Responsive design</li>
+                                        <li>Sound effects</li>
+                                    </ul>
+                                    <div class="project-actions">
+                                        <a href="https://ace2884.github.io/rock-paper-scissor-game/" class="btn-project live" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i> Live Demo
+                                        </a>
+                                        <a href="#" class="btn-project code">
+                                            <i class="fab fa-github"></i> Code
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-lg-4 mt-4">
-                    <div class="card portfolioContent">
-                        <img class="card-img-top" src="New folder/Screenshot 2024-09-02 235424.png" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">simple Calculator</h4>
-                            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <div class="text-center">
-                                <a href="https://ace2884.github.io/Simple-Calculator/" class="btn btn-success">Link</a>
+                    <div class="project-card-3d" data-category="tool" data-tech="JavaScript, CSS3, Math.js">
+                        <div class="card-3d">
+                            <div class="card-face card-front">
+                                <div class="project-image">
+                                    <img src="New folder/Screenshot 2024-09-02 235424.png" alt="Simple Calculator">
+                                    <div class="project-overlay">
+                                        <div class="project-tech">
+                                            <span class="tech-tag">JavaScript</span>
+                                            <span class="tech-tag">CSS3</span>
+                                            <span class="tech-tag">Math.js</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h4>Simple Calculator</h4>
+                                    <p>Clean and functional calculator with advanced operations</p>
+                                </div>
+                            </div>
+                            <div class="card-face card-back">
+                                <div class="project-details">
+                                    <h4>Simple Calculator</h4>
+                                    <p>A modern calculator featuring:</p>
+                                    <ul>
+                                        <li>Basic arithmetic operations</li>
+                                        <li>Memory functions</li>
+                                        <li>Keyboard support</li>
+                                        <li>Error handling</li>
+                                    </ul>
+                                    <div class="project-actions">
+                                        <a href="https://ace2884.github.io/Simple-Calculator/" class="btn-project live" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i> Live Demo
+                                        </a>
+                                        <a href="#" class="btn-project code">
+                                            <i class="fab fa-github"></i> Code
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="col-lg-4 mt-4">
-                    <div class="card portfolioContent">
-                        <img class="card-img-top" src="New folder/Screenshot 2024-09-03 000444.png" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">morse code</h4>
-                            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <div class="text-center">
-                                <a href="https://github.com/ace2884/morse_code.git" class="btn btn-success">Link</a>
+                    <div class="project-card-3d" data-category="tool" data-tech="JavaScript, Algorithm, Text Processing">
+                        <div class="card-3d">
+                            <div class="card-face card-front">
+                                <div class="project-image">
+                                    <img src="New folder/Screenshot 2024-09-03 000444.png" alt="Morse Code Translator">
+                                    <div class="project-overlay">
+                                        <div class="project-tech">
+                                            <span class="tech-tag">JavaScript</span>
+                                            <span class="tech-tag">Algorithm</span>
+                                            <span class="tech-tag">Audio API</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h4>Morse Code Translator</h4>
+                                    <p>Text to morse code converter with audio playback</p>
+                                </div>
+                            </div>
+                            <div class="card-face card-back">
+                                <div class="project-details">
+                                    <h4>Morse Code Translator</h4>
+                                    <p>A comprehensive morse code tool:</p>
+                                    <ul>
+                                        <li>Text to morse conversion</li>
+                                        <li>Audio morse playback</li>
+                                        <li>Copy to clipboard</li>
+                                        <li>Real-time translation</li>
+                                    </ul>
+                                    <div class="project-actions">
+                                        <a href="https://github.com/ace2884/morse_code.git" class="btn-project live" target="_blank">
+                                            <i class="fas fa-external-link-alt"></i> View Project
+                                        </a>
+                                        <a href="https://github.com/ace2884/morse_code.git" class="btn-project code" target="_blank">
+                                            <i class="fab fa-github"></i> Code
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coming Soon Projects -->
+                    <div class="project-card-3d coming-soon" data-category="web" data-tech="React, Node.js, MongoDB">
+                        <div class="card-3d">
+                            <div class="card-face card-front">
+                                <div class="project-image coming-soon-bg">
+                                    <div class="coming-soon-content">
+                                        <i class="fas fa-rocket"></i>
+                                        <h3>Blog Platform</h3>
+                                        <p>Coming Soon</p>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h4>Blog Website</h4>
+                                    <p>Full-stack blogging platform with admin panel</p>
+                                </div>
+                            </div>
+                            <div class="card-face card-back">
+                                <div class="project-details">
+                                    <h4>Blog Platform</h4>
+                                    <p>A modern blogging solution featuring:</p>
+                                    <ul>
+                                        <li>Rich text editor</li>
+                                        <li>User authentication</li>
+                                        <li>Comment system</li>
+                                        <li>Admin dashboard</li>
+                                    </ul>
+                                    <div class="project-actions">
+                                        <button class="btn-project disabled">
+                                            <i class="fas fa-clock"></i> In Development
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="project-card-3d coming-soon" data-category="web" data-tech="React, Firebase, PWA">
+                        <div class="card-3d">
+                            <div class="card-face card-front">
+                                <div class="project-image coming-soon-bg">
+                                    <div class="coming-soon-content">
+                                        <i class="fas fa-images"></i>
+                                        <h3>Image Gallery</h3>
+                                        <p>Coming Soon</p>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h4>Image Gallery</h4>
+                                    <p>Progressive web app for photo management</p>
+                                </div>
+                            </div>
+                            <div class="card-face card-back">
+                                <div class="project-details">
+                                    <h4>Image Gallery PWA</h4>
+                                    <p>Modern photo gallery featuring:</p>
+                                    <ul>
+                                        <li>Infinite scroll</li>
+                                        <li>Image optimization</li>
+                                        <li>Offline support</li>
+                                        <li>Social sharing</li>
+                                    </ul>
+                                    <div class="project-actions">
+                                        <button class="btn-project disabled">
+                                            <i class="fas fa-clock"></i> In Development
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <br>
-            <div class="row">
-                <div class="col-lg-4 mt-4">
-                    <div class="card portfolioContent">
-                        <img class="card-img-top" src="images/portfolioImage4.jpg" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">blog Website</h4>
-                            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <div class="text-center">
-                                <a href="#" class="btn btn-success">Link</a>
-                            </div>
-                        </div>
-                    </div>
+
+            <!-- Carousel Navigation -->
+            <div class="carousel-nav">
+                <button class="nav-btn prev" id="prevBtn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="carousel-indicators">
+                    <span class="indicator active"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
+                    <span class="indicator"></span>
                 </div>
-
-                <div class="col-lg-4 mt-4">
-                    <div class="card portfolioContent">
-                        <img class="card-img-top" src="images/portfolioImage1.jpg" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">image galley</h4>
-                            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <div class="text-center">
-                                <a href="#" class="btn btn-success">Link</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 mt-4">
-                    <div class="card portfolioContent">
-                        <img class="card-img-top" src="" alt="Card image" style="width:100%">
-                        <div class="card-body">
-                            <h4 class="card-title">minic app</h4>
-                            <p class="card-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-                            <div class="text-center">
-                                <a href="#" class="btn btn-success">Link</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </section>
-
-
-    <!-- contact section-->
-    <section id="contact">
-        <div class="container mt-3 contactContent">
-            <h1 class="text-center">Contact Me</h1>
-
-            <div class="row mt-4">
-                <div class="col-lg-6">
-                    <!-- to edit google map goto https://www.embed-map.com type your location, generate html code and copy the html  -->
-                    <div style="max-width:100%;overflow:hidden;color:red;width:500px;height:500px;">
-                        <div id="embedmap-canvas" style="height:100%; width:100%;max-width:100%;">
-                            <iframe style="height:100%;width:100%;border:0;" frameborder="0" src="https://www.google.com/maps/embed/v1/place?q=new+york&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8">
-                            </iframe>
-                        </div>
-                        <a class="googlemaps-html" href="https://www.embed-map.com" id="get-data-forembedmap">https://www.embed-map.com</a>
-                        <style>#embedmap-canvas img{max-width:none!important;background:none!important;font-size: inherit;font-weight:inherit;}
-                        </style>
-                    </div>
-                </div>
-
-                <div class="col-lg-6">
-                    <!-- form fields -->
-                    <form>
-                        <input type="text" class="form-control form-control-lg" placeholder="Name">
-                        <input type="email" class="form-control mt-3" placeholder="Email">
-                        <input type="text" class="form-control mt-3" placeholder="Subject">
-                        <div class="mb-3 mt-3">
-                            <textarea class="form-control" rows="5" id="comment" name="text" placeholder="Project Details"></textarea>
-                        </div>
-                    </form>
-                    <button type="button" class="btn btn-success mt-3">Contact Me</button>
-                    
-                </div>
-
+                <button class="nav-btn next" id="nextBtn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
         </div>
     </section>
 
-     <!-- footer section-->
+
+    <!-- contact section with 3D elements -->
+    <section id="contact" class="contact-3d">
+        <div class="container mt-3 contactContent">
+            <h1 class="text-center section-title">Get In Touch</h1>
+            <p class="text-center section-subtitle">Let's create something amazing together!</p>
+
+            <div class="row mt-4 align-items-center">
+                <div class="col-lg-6">
+                    <!-- Interactive Map with 3D Effects -->
+                    <div class="map-container-3d">
+                        <div class="map-overlay">
+                            <div class="location-info">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <h4>Location</h4>
+                                <p>Bangalore, India</p>
+                            </div>
+                        </div>
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.90089976653!2d77.46612536054362!3d12.953945613114844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka%2C%20India!5e0!3m2!1sen!2sus!4v1633000000000!5m2!1sen!2sus"
+                            class="interactive-map"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <!-- Contact Info Cards -->
+                    <div class="contact-info-grid">
+                        <div class="contact-info-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>Email</h5>
+                                <p>sneha.hridaya@email.com</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>Phone</h5>
+                                <p>+91 XXXXX XXXXX</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-info-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h5>Response Time</h5>
+                                <p>Within 24 hours</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <!-- 3D Contact Form -->
+                    <div class="contact-form-3d">
+                        <form id="contactForm" class="floating-form">
+                            <div class="form-group-3d">
+                                <input type="text" id="name" name="name" required>
+                                <label for="name">Your Name</label>
+                                <div class="form-underline"></div>
+                            </div>
+
+                            <div class="form-group-3d">
+                                <input type="email" id="email" name="email" required>
+                                <label for="email">Your Email</label>
+                                <div class="form-underline"></div>
+                            </div>
+
+                            <div class="form-group-3d">
+                                <input type="text" id="subject" name="subject" required>
+                                <label for="subject">Subject</label>
+                                <div class="form-underline"></div>
+                            </div>
+
+                            <div class="form-group-3d">
+                                <select id="projectType" name="projectType" required>
+                                    <option value="">Select Project Type</option>
+                                    <option value="web-development">Web Development</option>
+                                    <option value="mobile-app">Mobile App</option>
+                                    <option value="ui-ux-design">UI/UX Design</option>
+                                    <option value="consultation">Consultation</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <label for="projectType">Project Type</label>
+                                <div class="form-underline"></div>
+                            </div>
+
+                            <div class="form-group-3d">
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                                <label for="message">Project Details</label>
+                                <div class="form-underline"></div>
+                            </div>
+
+                            <div class="budget-range">
+                                <label>Budget Range</label>
+                                <div class="budget-options">
+                                    <input type="radio" id="budget1" name="budget" value="under-1000">
+                                    <label for="budget1">Under $1,000</label>
+                                    
+                                    <input type="radio" id="budget2" name="budget" value="1000-5000">
+                                    <label for="budget2">$1,000 - $5,000</label>
+                                    
+                                    <input type="radio" id="budget3" name="budget" value="5000-10000">
+                                    <label for="budget3">$5,000 - $10,000</label>
+                                    
+                                    <input type="radio" id="budget4" name="budget" value="10000-plus">
+                                    <label for="budget4">$10,000+</label>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-submit-3d">
+                                <span class="btn-text">Send Message</span>
+                                <span class="btn-icon"><i class="fas fa-paper-plane"></i></span>
+                                <div class="btn-loading">
+                                    <div class="spinner"></div>
+                                </div>
+                            </button>
+                        </form>
+
+                        <!-- Success Message -->
+                        <div class="success-message" id="successMessage">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Message Sent Successfully!</h3>
+                            <p>Thank you for reaching out. I'll get back to you within 24 hours.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- footer section with 3D effects -->
      <footer id="footer">
         <div class="container-fluid">
-            <!-- social media icons -->
-            <div class="social-icons mt-4">
-                <a href="https://www.facebook.com/" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.instagram.com/" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.twitter.com/" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://www.linkedin.com/" target="_blank"><i class="fab fa-linkedin"></i></a>
-                <a href="https://www.twitch.tv/" target="_blank"><i class="fab fa-twitch"></i></a>
+            <div class="footer-content">
+                <!-- Back to top button -->
+                <div class="back-to-top" id="backToTop">
+                    <i class="fas fa-rocket"></i>
+                </div>
+
+                <!-- Footer info -->
+                <div class="footer-info">
+                    <h3>Sneha Hridaya</h3>
+                    <p>Computer Science Student & Full-Stack Developer</p>
+                    <p>Creating digital experiences that inspire and engage</p>
+                </div>
+
+                <!-- Social media icons with 3D effects -->
+                <div class="social-icons-3d mt-4">
+                    <a href="https://www.facebook.com/" target="_blank" class="social-link" data-platform="facebook">
+                        <div class="social-icon-3d">
+                            <i class="fab fa-facebook-f"></i>
+                        </div>
+                        <span class="social-label">Facebook</span>
+                    </a>
+                    
+                    <a href="https://www.instagram.com/" target="_blank" class="social-link" data-platform="instagram">
+                        <div class="social-icon-3d">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <span class="social-label">Instagram</span>
+                    </a>
+                    
+                    <a href="https://www.twitter.com/" target="_blank" class="social-link" data-platform="twitter">
+                        <div class="social-icon-3d">
+                            <i class="fab fa-twitter"></i>
+                        </div>
+                        <span class="social-label">Twitter</span>
+                    </a>
+                    
+                    <a href="https://www.linkedin.com/" target="_blank" class="social-link" data-platform="linkedin">
+                        <div class="social-icon-3d">
+                            <i class="fab fa-linkedin-in"></i>
+                        </div>
+                        <span class="social-label">LinkedIn</span>
+                    </a>
+                    
+                    <a href="https://github.com/ace2884" target="_blank" class="social-link" data-platform="github">
+                        <div class="social-icon-3d">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <span class="social-label">GitHub</span>
+                    </a>
+                </div>
+
+                <!-- Footer bottom -->
+                <div class="footer-bottom">
+                    <div class="footer-divider"></div>
+                    <p>&copy; 2024 Sneha Hridaya. All rights reserved.</p>
+                    <p>Built with ❤️ using HTML, CSS, JavaScript & Three.js</p>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- Device Detection and Core Scripts -->
+    <script>
+        // Device detection
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isAndroid = /Android/i.test(navigator.userAgent);
+        const isTouch = 'ontouchstart' in window;
+        
+        // Add device classes to body
+        document.body.classList.add(isMobile ? 'mobile' : 'desktop');
+        if (isAndroid) document.body.classList.add('android');
+        if (isTouch) document.body.classList.add('touch');
+        
+        // Performance settings based on device
+        window.portfolioConfig = {
+            isMobile: isMobile,
+            isAndroid: isAndroid,
+            isTouch: isTouch,
+            performanceMode: isMobile ? 'low' : 'high',
+            particleCount: isMobile ? 50 : 200,
+            animationSpeed: isMobile ? 0.5 : 1
+        };
+    </script>
+    
     <script src="script.js"></script>
+    <script src="3d-effects.js"></script>
+    <script src="mobile-optimizations.js"></script>
 
 </body>
 </html>
