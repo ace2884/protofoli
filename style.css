@@ -362,6 +362,21 @@
     align-items: center;
 }
 
+/* Single column variant when image removed */
+.about-no-image .about-grid,
+.about-no-image .about-content,
+.about-no-image .about-body {
+    grid-template-columns: 1fr;
+}
+
+.about-no-image .about-content.full-width {
+    padding-left: 0;
+}
+
+.about-no-image .image-container-3d {
+    display: none;
+}
+
 .about-body {
     margin-bottom: 1.5rem;
 }
